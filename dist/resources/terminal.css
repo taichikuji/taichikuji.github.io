@@ -1,26 +1,26 @@
 :root {
-	--global-font-size: 15px;
-	--global-line-height: 1.4em;
-	--global-space: 10px;
-	--font-stack: Menlo, Monaco, Lucida Console, Liberation Mono,
-	DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace,
-	serif;
-	--mono-font-stack: Menlo, Monaco, Lucida Console, Liberation Mono,
-	DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace,
-	serif;
-	--background-color: #222225;
-	--page-width: 60em;
-	--font-color: #e8e9ed;
-	--invert-font-color: #222225;
-	--secondary-color: #a3abba;
-	--tertiary-color: #a3abba;
-	--primary-color: #62c4ff;
-	--error-color: #ff3c74;
-	--progress-bar-background: #3f3f44;
-	--progress-bar-fill: #62c4ff;
-	--code-bg-color: #3f3f44;
-	--input-style: solid;
-	--display-h1-decoration: none;
+  --global-font-size: 15px;
+  --global-line-height: 1.4em;
+  --global-space: 10px;
+  --font-stack: Menlo, Monaco, Lucida Console, Liberation Mono,
+    DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace,
+    serif;
+  --mono-font-stack: Menlo, Monaco, Lucida Console, Liberation Mono,
+    DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace,
+    serif;
+  --background-color: #222225;
+  --page-width: 60em;
+  --font-color: #e8e9ed;
+  --invert-font-color: #222225;
+  --secondary-color: #a3abba;
+  --tertiary-color: #a3abba;
+  --primary-color: #62c4ff;
+  --error-color: #ff3c74;
+  --progress-bar-background: #3f3f44;
+  --progress-bar-fill: #62c4ff;
+  --code-bg-color: #3f3f44;
+  --input-style: solid;
+  --display-h1-decoration: none;
 }
 
 * {
@@ -133,8 +133,8 @@ h1::after {
   display: var(--display-h1-decoration);
 }
 
-h1 + *,
-.logo + * {
+h1+*,
+.logo+* {
   margin-top: 0;
 }
 
@@ -233,7 +233,7 @@ pre code {
 .terminal-prompt::after {
   content: "";
   -webkit-animation: cursor 800ms infinite;
-          animation: cursor 800ms infinite;
+  animation: cursor 800ms infinite;
   background: var(--primary-color);
   border-radius: 0;
   display: inline-block;
@@ -273,13 +273,13 @@ pre code {
 }
 
 li,
-li > ul > li {
+li>ul>li {
   position: relative;
   display: block;
   padding-left: calc(var(--global-space) * 2);
 }
 
-nav > ul > li {
+nav>ul>li {
   padding-left: 0;
 }
 
@@ -289,11 +289,11 @@ li::after {
   left: 0;
 }
 
-ul > li::after {
+ul>li::after {
   content: "-";
 }
 
-nav ul > li::after {
+nav ul>li::after {
   content: "";
 }
 
@@ -475,8 +475,8 @@ img {
   transform: translateX(50%);
 }
 
-.progress-bar-no-arrow > .progress-bar-filled::before,
-.progress-bar-no-arrow > .progress-bar-filled::after {
+.progress-bar-no-arrow>.progress-bar-filled::before,
+.progress-bar-no-arrow>.progress-bar-filled::after {
   content: "";
   display: none;
   visibility: hidden;
@@ -778,14 +778,14 @@ select:-webkit-autofill:focus {
   border: 1px solid var(--secondary-color);
 }
 
-.terminal-card > header {
+.terminal-card>header {
   color: var(--invert-font-color);
   text-align: center;
   background-color: var(--secondary-color);
   padding: 0.5em 0;
 }
 
-.terminal-card > div:first-of-type {
+.terminal-card>div:first-of-type {
   padding: var(--global-space);
 }
 
@@ -920,7 +920,7 @@ select:-webkit-autofill:focus {
   border: 1px solid var(--secondary-color);
 }
 
-figure > img {
+figure>img {
   padding: 0;
 }
 
@@ -937,7 +937,7 @@ figure {
   margin: 0;
 }
 
-figure > figcaption {
+figure>figcaption {
   color: var(--secondary-color);
   text-align: center;
 }
@@ -1030,20 +1030,18 @@ figure > figcaption {
   grid-template-rows: auto;
 }
 
-    .image-grid {
-      display: grid;
-      grid-template-rows: auto;
-      display: grid;
-      grid-gap: 1em;
-      grid-template-rows: auto;
-      grid-template-columns: repeat(
-        auto-fit,
-        minmax(calc(var(--page-width) / 12), 1fr)
-      );
-    }
+.image-grid {
+  display: grid;
+  grid-template-rows: auto;
+  display: grid;
+  grid-gap: 1em;
+  grid-template-rows: auto;
+  grid-template-columns: repeat(auto-fit,
+      minmax(calc(var(--page-width) / 12), 1fr));
+}
 
-    @media only screen and (min-width: 70em) {
-      .components-grid {
-        grid-template-columns: 3fr 9fr;
-      }
-    }
+@media only screen and (min-width: 70em) {
+  .components-grid {
+    grid-template-columns: 3fr 9fr;
+  }
+}
