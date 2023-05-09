@@ -538,7 +538,6 @@ input[type="search"] {
   padding: 0.7em 0.5em;
   font-size: 1em;
   font-family: var(--font-stack);
-  -webkit-appearance: none;
   border-radius: 0;
 }
 
@@ -553,7 +552,6 @@ input[type="number"]:focus,
 input[type="password"]:focus,
 input[type="search"]:focus {
   outline: none;
-  -webkit-appearance: none;
   border: 1px solid var(--font-color);
 }
 
@@ -609,13 +607,11 @@ textarea {
   padding: 0.5em;
   font-size: 1em;
   font-family: var(--font-stack);
-  -webkit-appearance: none;
   border-radius: 0;
 }
 
 textarea:focus {
   outline: none;
-  -webkit-appearance: none;
   border: 1px solid var(--font-color);
 }
 
