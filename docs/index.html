@@ -46,11 +46,22 @@
               property="item" typeof="WebPage" class="menu-item"><span property="name">LinkedIn</span></a>
             <meta property="position" content="3">
           </li>
-          <li style="height: 28px;"><span></span></li>
-        </ul>
-      </nav>
+          <li property="itemListElement" typeof="ListItem">
+            <a href="#" id="theme-toggle" aria-label="Toggle light/dark mode" role="button" property="item" class="menu-item" style="display: flex; align-items: center; justify-content: center; padding: 0;">
+              <span id="theme-icon-sun" style="display: none;">
+                <svg width="24" height="24" stroke="var(--icon-sun-color)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3V4M12 20V21M4 12H3M6.314 6.314L5.5 5.5M17.686 6.314L18.5 5.5M6.314 17.69L5.5 18.5M17.686 17.69L18.5 18.5M21 12H20M16 12C16 14.209 14.209 16 12 16C9.791 16 8 14.209 8 12C8 9.791 9.791 8 12 8C14.209 8 16 9.791 16 12Z"/></svg>
+              </span>
+              <span id="theme-icon-moon">
+                <svg width="24" height="24" stroke="var(--icon-moon-color)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.32 11.684C3.32 16.654 7.35 20.684 12.32 20.684C16.108 20.684 19.348 18.344 20.677 15.032C19.64 15.449 18.506 15.683 17.32 15.683C12.35 15.683 8.32 11.654 8.32 6.683C8.32 5.503 8.552 4.363 8.965 3.33C5.656 4.66 3.32 7.899 3.32 11.684Z"/></svg>
+              </span>
+            </a>
+            <meta property="position" content="4">
+          </li>
+            <li style="height: 28px;"><span></span></li>
+          </ul>
+        </nav>
+      </div>
     </div>
-  </div>
   <div class="container">
     <section class="terminal-intro">
       <p>Hi! I'm Iván, also known as Taichums.</p>
@@ -183,6 +194,28 @@
             targetElement.scrollIntoView({ behavior: 'smooth' });
           }
         }
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+      var toggle = document.getElementById('theme-toggle');
+      var iconSun = document.getElementById('theme-icon-sun');
+      var iconMoon = document.getElementById('theme-icon-moon');
+      var body = document.body;
+
+      if (toggle && iconSun && iconMoon) {
+        toggle.onclick = function(event) {
+          event.preventDefault();
+          if (body.classList.contains('light-mode')) {
+            body.classList.remove('light-mode');
+            iconSun.style.display = 'none';
+            iconMoon.style.display = 'inline';
+          } else {
+            body.classList.add('light-mode');
+            iconSun.style.display = 'inline';
+            iconMoon.style.display = 'none';
+          }
+        };
       }
     });
   </script>

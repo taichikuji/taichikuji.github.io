@@ -1,41 +1,69 @@
 :root {
-  --ctp-rosewater: #f5e0dc;
-  --ctp-flamingo: #f2cdcd;
-  --ctp-pink: #f5c2e7;
-  --ctp-mauve: #cba6f7;
-  --ctp-red: #f38ba8;
-  --ctp-maroon: #eba0ac;
-  --ctp-peach: #fab387;
-  --ctp-yellow: #f9e2af;
-  --ctp-green: #a6e3a1;
-  --ctp-teal: #94e2d5;
-  --ctp-sky: #89dceb;
-  --ctp-sapphire: #74c7ec;
-  --ctp-blue: #89b4fa;
-  --ctp-lavender: #b4befe;
-  --ctp-text: #cdd6f4;
-  --ctp-subtext1: #bac2de;
-  --ctp-subtext0: #a6adc8;
-  --ctp-overlay2: #9399b2;
-  --ctp-overlay1: #7f849c;
-  --ctp-overlay0: #6c7086;
-  --ctp-surface2: #585b70;
-  --ctp-surface1: #45475a;
-  --ctp-surface0: #313244;
-  --ctp-base: #1e1e2e;
-  --ctp-mantle: #181825;
-  --ctp-crust: #11111b;
+  /* Dark Mode */
+  --ctp-dm-rosewater: #f5e0dc;
+  --ctp-dm-flamingo: #f2cdcd;
+  --ctp-dm-pink: #f5c2e7;
+  --ctp-dm-mauve: #cba6f7;
+  --ctp-dm-red: #f38ba8;
+  --ctp-dm-maroon: #eba0ac;
+  --ctp-dm-peach: #fab387;
+  --ctp-dm-yellow: #f9e2af;
+  --ctp-dm-green: #a6e3a1;
+  --ctp-dm-teal: #94e2d5;
+  --ctp-dm-sky: #89dceb;
+  --ctp-dm-sapphire: #74c7ec;
+  --ctp-dm-blue: #89b4fa;
+  --ctp-dm-lavender: #b4befe;
+  --ctp-dm-text: #cdd6f4;
+  --ctp-dm-subtext1: #bac2de;
+  --ctp-dm-subtext0: #a6adc8;
+  --ctp-dm-overlay2: #9399b2;
+  --ctp-dm-overlay1: #7f849c;
+  --ctp-dm-overlay0: #6c7086;
+  --ctp-dm-surface2: #585b70;
+  --ctp-dm-surface1: #45475a;
+  --ctp-dm-surface0: #313244;
+  --ctp-dm-base: #1e1e2e;
+  --ctp-dm-mantle: #181825;
+  --ctp-dm-crust: #11111b;
+  /* Light Mode */
+  --ctp-lm-rosewater: #dc8a78;
+  --ctp-lm-flamingo: #dd7878;
+  --ctp-lm-pink: #ea76cb;
+  --ctp-lm-mauve: #8839ef;
+  --ctp-lm-red: #d20f39;
+  --ctp-lm-maroon: #e64553;
+  --ctp-lm-peach: #fe640b;
+  --ctp-lm-yellow: #df8e1d;
+  --ctp-lm-green: #40a02b;
+  --ctp-lm-teal: #179299;
+  --ctp-lm-sky: #04a5e5;
+  --ctp-lm-sapphire: #209fb5;
+  --ctp-lm-blue: #1e66f5;
+  --ctp-lm-lavender: #7287fd;
+  --ctp-lm-text: #4c4f69;
+  --ctp-lm-subtext1: #5c5f77;
+  --ctp-lm-subtext0: #6c6f85;
+  --ctp-lm-overlay2: #7c7f93;
+  --ctp-lm-overlay1: #8c8fa1;
+  --ctp-lm-overlay0: #9ca0b0;
+  --ctp-lm-surface2: #acb0be;
+  --ctp-lm-surface1: #bcc0cc;
+  --ctp-lm-surface0: #ccd0da;
+  --ctp-lm-base: #eff1f5;
+  --ctp-lm-mantle: #e6e9ef;
+  --ctp-lm-crust: #dce0e8;
 
-  --background-color: var(--ctp-base);
-  --font-color: var(--ctp-text);
-  --invert-font-color: var(--ctp-crust);
-  --secondary-color: var(--ctp-subtext1);
-  --tertiary-color: var(--ctp-overlay1);
-  --primary-color: var(--ctp-blue);
-  --error-color: var(--ctp-red);
-  --progress-bar-background: var(--ctp-surface1);
-  --progress-bar-fill: var(--ctp-blue);
-  --code-bg-color: var(--ctp-surface0);
+  --background-color: var(--ctp-dm-base);
+  --font-color: var(--ctp-dm-text);
+  --invert-font-color: var(--ctp-dm-crust);
+  --secondary-color: var(--ctp-dm-subtext1);
+  --tertiary-color: var(--ctp-dm-overlay1);
+  --primary-color: var(--ctp-dm-blue);
+  --error-color: var(--ctp-dm-red);
+  --progress-bar-background: var(--ctp-dm-surface1);
+  --progress-bar-fill: var(--ctp-dm-blue);
+  --code-bg-color: var(--ctp-dm-surface0);
 
   --global-font-size: 15px;
   --global-line-height: 1.4em;
@@ -45,6 +73,34 @@
   --page-width: 60em;
   --input-style: solid;
   --display-h1-decoration: none;
+}
+
+body.light-mode {
+  --background-color: var(--ctp-lm-base);
+  --font-color: var(--ctp-lm-text);
+  --invert-font-color: var(--ctp-lm-crust);
+  --secondary-color: var(--ctp-lm-subtext1);
+  --tertiary-color: var(--ctp-lm-overlay1);
+  --primary-color: var(--ctp-lm-blue);
+  --error-color: var(--ctp-lm-red);
+  --progress-bar-background: var(--ctp-lm-surface1);
+  --progress-bar-fill: var(--ctp-lm-blue);
+  --code-bg-color: var(--ctp-lm-surface0);
+  --icon-sun-color: var(--ctp-lm-subtext1);
+}
+
+body:not(.light-mode) {
+  --icon-moon-color: var(--ctp-dm-subtext1);
+}
+
+body {
+  font-size: var(--global-font-size);
+  color: var(--font-color);
+  line-height: var(--global-line-height);
+  margin: 0;
+  font-family: var(--font-stack);
+  word-wrap: break-word;
+  background-color: var(--background-color);
 }
 
 * {
@@ -1002,7 +1058,7 @@ figure>figcaption {
 }
 
 .hljs-string {
-  color: var(--secondary-color);
+  color: var (--secondary-color);
 }
 
 .hljs-deletion,
