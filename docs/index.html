@@ -5,23 +5,23 @@
   <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no">
   <!-- meta info -->
   <meta charset="UTF-8">
-  <meta name="description" content="This is a description! Probably should change this soon">
+  <meta name="description" content="Website project that explains my (Taichi) projects">
   <link rel="icon" href="resources/db/logo.webp">
   <title>Taichi's site!</title>
   <!-- twitter meta info -->
   <meta name="twitter:card" content="summary">
   <meta name="twitter:site" content="@taichikuji">
   <meta name="twitter:title" content="Taichi's site!">
-  <meta name="twitter:description" content="This is a description! Probably should change this soon">
+  <meta name="twitter:description" content="Website project that explains my (Taichi) projects">
   <meta name="twitter:creator" content="@taichikuji">
   <meta name="twitter:image" content="resources/db/logo.webp">
-  <meta name="twitter:image:alt" content="This is displaying because somehow this image is missing.">
+  <meta name="twitter:image:alt" content="Logo image missing">
   <!--discord meta info -->
   <meta property="og:title" content="Taichi's site!">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://github.com/taichikuji">
   <meta property="og:image" content="resources/db/logo.webp">
-  <meta property="og:description" content="This is a description! Probably should change this soon">
+  <meta property="og:description" content="Website project that explains my (Taichi) projects">
   <link rel="stylesheet" href="resources/terminal.css">
   <link rel="stylesheet" href="resources/normalize.css">
 </head>
@@ -197,24 +197,26 @@
       }
     });
 
-    document.addEventListener('DOMContentLoaded', function() {
-      var toggle = document.getElementById('theme-toggle');
-      var iconSun = document.getElementById('theme-icon-sun');
-      var iconMoon = document.getElementById('theme-icon-moon');
-      var body = document.body;
+    document.addEventListener('DOMContentLoaded', () => {
+      const toggle = document.getElementById('theme-toggle'),
+            sun = document.getElementById('theme-icon-sun'),
+            moon = document.getElementById('theme-icon-moon'),
+            body = document.body,
+            key = 'theme';
 
-      if (toggle && iconSun && iconMoon) {
-        toggle.onclick = function(event) {
-          event.preventDefault();
-          if (body.classList.contains('light-mode')) {
-            body.classList.remove('light-mode');
-            iconSun.style.display = 'none';
-            iconMoon.style.display = 'inline';
-          } else {
-            body.classList.add('light-mode');
-            iconSun.style.display = 'inline';
-            iconMoon.style.display = 'none';
-          }
+      const applyUserTheme = (isLight) => {
+        body.classList.toggle('light-mode', isLight);
+        if (sun) sun.style.display = isLight ? 'inline' : 'none';
+        if (moon) moon.style.display = isLight ? 'none' : 'inline';
+        localStorage.setItem(key, isLight ? 'light' : 'dark');
+      };
+
+      applyUserTheme(localStorage.getItem(key) === 'light');
+
+      if (toggle) {
+        toggle.onclick = (e) => {
+          e.preventDefault();
+          applyUserTheme(!body.classList.contains('light-mode'));
         };
       }
     });
