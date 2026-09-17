@@ -1,2 +1,6 @@
 [build]
+    command = "bun ci && bun run build"
     publish = "docs"
+
+[build.environment]
+    BUN_VERSION = "1.4.2"
