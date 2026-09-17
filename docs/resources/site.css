@@ -1,0 +1,84 @@
+/* Local additions to Terminal.css. Keep the upstream stylesheet untouched. */
+
+:root {
+  color-scheme: light dark;
+  --font-stack: 'Consolas', 'Monaco', 'Lucida Console', 'Courier New', monospace;
+  --mono-font-stack: 'Consolas', 'Monaco', 'Lucida Console', 'Courier New', monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: #1e1e2e;
+    --font-color: #cdd6f4;
+    --invert-font-color: #11111b;
+    --secondary-color: #bac2de;
+    --tertiary-color: #7f849c;
+    --primary-color: #89b4fa;
+    --error-color: #f38ba8;
+    --progress-bar-background: #45475a;
+    --progress-bar-fill: #89b4fa;
+    --code-bg-color: #313244;
+    --block-background-color: var(--background-color);
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --background-color: #eff1f5;
+    --font-color: #4c4f69;
+    --invert-font-color: #dce0e8;
+    --secondary-color: #5c5f77;
+    --tertiary-color: #8c8fa1;
+    --primary-color: #1e66f5;
+    --error-color: #d20f39;
+    --progress-bar-background: #bcc0cc;
+    --progress-bar-fill: #1e66f5;
+    --code-bg-color: #ccd0da;
+    --block-background-color: var(--background-color);
+  }
+}
+
+.components-grid {
+  display: grid;
+  grid-column-gap: 1.4em;
+  grid-template-columns: auto;
+  grid-template-rows: auto;
+}
+
+@media only screen and (min-width: 70em) {
+  .components-grid {
+    grid-template-columns: 3fr 9fr;
+  }
+}
+
+main,
+aside,
+footer {
+  border: 1px solid var(--tertiary-color);
+  padding: calc(var(--global-space) * 1.5);
+  margin-bottom: calc(var(--global-space) * 2);
+}
+
+footer {
+  padding: var(--global-space);
+  margin-top: calc(var(--global-space) * 2);
+}
+
+.job {
+  border: 1px dashed var(--secondary-color);
+  padding: var(--global-space);
+  margin-top: var(--global-space);
+  margin-bottom: var(--global-space);
+}
+
+.job:last-child {
+  margin-bottom: 0;
+}
+
+main pre,
+aside pre {
+  border: none;
+  background-color: var(--code-bg-color);
+  margin-top: var(--global-space);
+  margin-bottom: var(--global-space);
+}
