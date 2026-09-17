@@ -1,5 +1,6 @@
 import { mkdir, readdir, rename, rm } from "node:fs/promises";
 import { join } from "node:path";
+import hljs from "highlight.js/lib/common";
 import MarkdownIt from "markdown-it";
 import { parse as parseYaml } from "yaml";
 
@@ -15,7 +16,17 @@ const entities: Record<string, string> = {
   '"': "&quot;",
   "'": "&#39;",
 };
-const markdown = new MarkdownIt({ html: false, linkify: true, typographer: false });
+const markdown = new MarkdownIt({
+  html: false,
+  linkify: true,
+  typographer: false,
+  highlight(code, language) {
+    if (language && hljs.getLanguage(language)) {
+      return hljs.highlight(code, { language }).value;
+    }
+    return "";
+  },
+});
 const pageTemplate = await Bun.file("scripts/blog-page.html").text();
 
 type Post = {
