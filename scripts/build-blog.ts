@@ -16,6 +16,7 @@ const entities: Record<string, string> = {
   "'": "&#39;",
 };
 const markdown = new MarkdownIt({ html: false, linkify: true, typographer: false });
+const pageTemplate = await Bun.file("scripts/blog-page.html").text();
 
 type Post = {
   title: string;
@@ -27,23 +28,26 @@ type Post = {
   body: string;
 };
 
-function fail(file: string, message: string): never {
+const escapeHtml = (value: string) => value.replace(/[&<>"']/g, (character) => entities[character]);
+const fail = (file: string, message: string): never => {
   throw new Error(`${file}: ${message}`);
-}
+};
 
-function escapeHtml(value: string): string {
-  return value.replace(/[&<>"']/g, (character) => entities[character]);
-}
-
-function isDate(value: unknown): value is string {
+function validDate(value: unknown): value is string {
   if (typeof value !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
   const date = new Date(`${value}T00:00:00Z`);
   return !Number.isNaN(date.valueOf()) && date.toISOString().slice(0, 10) === value;
 }
 
+function validTags(value: unknown): value is string[] {
+  return Array.isArray(value) && value.length > 0
+    && value.every((tag) => typeof tag === "string" && slugPattern.test(tag))
+    && new Set(value).size === value.length;
+}
+
 async function readPost(file: string): Promise<Post> {
-  const text = await Bun.file(join(postsDir, file)).text();
-  const match = text.match(/^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)([\s\S]*)$/);
+  const source = await Bun.file(join(postsDir, file)).text();
+  const match = source.match(/^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)([\s\S]*)$/);
   if (!match) fail(file, "missing or malformed YAML front matter");
 
   let parsed: unknown;
@@ -52,97 +56,57 @@ async function readPost(file: string): Promise<Post> {
   } catch (error) {
     fail(file, `invalid YAML: ${error instanceof Error ? error.message : String(error)}`);
   }
+  if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) fail(file, "front matter must be a YAML object");
 
-  if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
-    fail(file, "front matter must be a YAML object");
-  }
-
-  const metadata = parsed as Record<string, unknown>;
-  const missing = fields.find((field) => !(field in metadata));
-  const unknown = Object.keys(metadata).find((field) => !fields.includes(field as typeof fields[number]));
+  const data = parsed as Record<string, unknown>;
+  const missing = fields.find((field) => !(field in data));
+  const unknown = Object.keys(data).find((field) => !fields.includes(field as typeof fields[number]));
   if (missing) fail(file, `missing metadata field '${missing}'`);
   if (unknown) fail(file, `unknown metadata field '${unknown}'`);
 
-  const { title, slug, date, summary, tags, draft } = metadata;
+  const { title, slug, date, summary, tags, draft } = data;
   if (typeof title !== "string" || !title.trim()) fail(file, "title must be a non-empty string");
   if (typeof slug !== "string" || !slugPattern.test(slug)) fail(file, "slug must be lowercase kebab-case");
   if (file !== `${slug}.md`) fail(file, `filename must match slug '${slug}'`);
-  if (!isDate(date)) fail(file, "date must be a real date using YYYY-MM-DD");
+  if (!validDate(date)) fail(file, "date must be a real date using YYYY-MM-DD");
   if (typeof summary !== "string" || !summary.trim()) fail(file, "summary must be a non-empty string");
-  if (!Array.isArray(tags) || !tags.length || tags.some((tag) => typeof tag !== "string" || !slugPattern.test(tag))) {
-    fail(file, "tags must be a non-empty list of lowercase kebab-case labels");
-  }
-  if (new Set(tags).size !== tags.length) fail(file, "tags must not repeat");
+  if (!validTags(tags)) fail(file, "tags must be unique lowercase kebab-case labels");
   if (typeof draft !== "boolean") fail(file, "draft must be true or false");
   if (!match[2].trim()) fail(file, "post body must not be empty");
 
-  return {
-    title: title.trim(),
-    slug,
-    date,
-    summary: summary.trim(),
-    tags,
-    draft,
-    body: match[2],
-  };
+  return { title: title.trim(), slug, date, summary: summary.trim(), tags, draft, body: match[2] };
 }
 
-function layout(title: string, description: string, menu: string, content: string, footer = ""): string {
-  const footerHtml = footer ? `\n    <footer>${footer}</footer>` : "";
-  return `<!DOCTYPE html>
-<html lang="en-US">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="${escapeHtml(description)}">
-  <title>${escapeHtml(title)} | Taichikuji</title>
-  <link rel="stylesheet" href="../resources/normalize.css">
-  <link rel="stylesheet" href="https://unpkg.com/terminal.css@0.7.4/dist/terminal.min.css">
-  <link rel="stylesheet" href="../resources/site.css">
-</head>
-<body class="terminal">
-  <div class="container">
-    <nav class="terminal-nav">
-      <header class="terminal-logo">
-        <div class="logo terminal-prompt"><a href="../index.html" class="no-style">Taichikuji</a></div>
-      </header>
-      <div class="terminal-menu"><ul>${menu}</ul></div>
-    </nav>
-    <main>${content}</main>${footerHtml}
-  </div>
-</body>
-</html>
-`;
+function page(title: string, description: string, content: string, isArticle = false): string {
+  const values = {
+    title: escapeHtml(title),
+    description: escapeHtml(description),
+    content,
+    menu: `${isArticle ? '<li><a href="index.html">Blog</a></li>' : ""}<li><a href="../index.html">Home</a></li>`,
+    footer: isArticle ? '<footer><a href="index.html">Back to blog</a> | <a href="../index.html">Home</a></footer>' : "",
+  };
+  return pageTemplate.replace(
+    /{{(title|description|content|menu|footer)}}/g,
+    (_, key: keyof typeof values) => values[key],
+  );
 }
 
 function article(post: Post): string {
-  const menu = '<li><a href="index.html">Blog</a></li><li><a href="../index.html">Home</a></li>';
-  const tags = post.tags.map(escapeHtml).join(" / ");
-  const content = `<article>
-      <header>
-        <h1>${escapeHtml(post.title)}</h1>
-        <p>${post.date}</p>
-        <p>${escapeHtml(post.summary)}</p>
-        <p>Tags: ${tags}</p>
-      </header>
-      ${markdown.render(post.body)}
-    </article>`;
-  const footer = '<a href="index.html">Back to blog</a> | <a href="../index.html">Home</a>';
-  return layout(post.title, post.summary, menu, content, footer);
+  const content = `<article><header>
+      <h1>${escapeHtml(post.title)}</h1>
+      <p>${post.date}</p>
+      <p>${escapeHtml(post.summary)}</p>
+      <p>Tags: ${post.tags.map(escapeHtml).join(" / ")}</p>
+    </header>${markdown.render(post.body)}</article>`;
+  return page(post.title, post.summary, content, true);
 }
 
 function blogIndex(posts: Post[]): string {
   const description = "Notes about infrastructure, automation, systems, and things I learn along the way.";
-  const entries = posts
-    .map((post) => `<li><a href="${post.slug}.html">${escapeHtml(post.title)}</a> - ${post.date}<br>${escapeHtml(post.summary)}</li>`)
-    .join("\n");
-  const list = entries || "<li>No posts yet.</li>";
-  return layout(
-    "Blog",
-    "Notes and articles by Iván (Taichums).",
-    '<li><a href="../index.html">Home</a></li>',
-    `<h1>Blog</h1><p>${description}</p><ul>${list}</ul>`,
-  );
+  const items = posts.map((post) =>
+    `<li><a href="${post.slug}.html">${escapeHtml(post.title)}</a> - ${post.date}<br>${escapeHtml(post.summary)}</li>`
+  ).join("\n") || "<li>No posts yet.</li>";
+  return page("Blog", "Notes and articles by Iván (Taichums).", `<h1>Blog</h1><p>${description}</p><ul>${items}</ul>`);
 }
 
 await mkdir(postsDir, { recursive: true });
