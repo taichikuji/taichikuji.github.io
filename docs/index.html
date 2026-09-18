@@ -23,17 +23,17 @@
   <meta property="og:image" content="resources/db/logo.webp">
   <meta property="og:description" content="Iván (Taichums), an SRE II based in Barcelona, Spain, working with infrastructure, automation, cloud systems, and Linux.">
   <link rel="stylesheet" href="resources/normalize.css">
-  <link rel="stylesheet" href="https://unpkg.com/terminal.css@0.7.4/dist/terminal.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/terminal.css@0.7.5/dist/terminal.min.css">
   <link rel="stylesheet" href="resources/site.css">
 </head>
 
 <body class="terminal">
   <div class="container">
-    <div id="nav" class="terminal-nav">
+    <nav id="nav" class="terminal-nav">
       <header class="terminal-logo">
         <div class="logo terminal-prompt"><a href="/taichikuji" target="_blank" rel="noopener noreferrer" class="no-style">Taichikuji</a></div>
       </header>
-      <nav class="terminal-menu">
+      <div class="terminal-menu">
         <ul vocab="https://schema.org/" typeof="BreadcrumbList">
           <li property="itemListElement" typeof="ListItem"><a href="/discord" target="_blank" rel="noopener noreferrer"
               property="item" typeof="WebPage" class="menu-item"><span property="name">Discord</span></a>
@@ -50,9 +50,9 @@
           <li property="itemListElement" typeof="ListItem"><a href="blog/index.html" property="item" typeof="WebPage" class="menu-item"><span property="name">Blog</span></a>
             <meta property="position" content="4">
           </li>
-          </ul>
-        </nav>
+        </ul>
       </div>
+    </nav>
     </div>
   <div class="container">
     <section class="terminal-intro">
@@ -60,49 +60,59 @@
       <p>I'm a Hybrid Cloud Site Reliability Engineer at Nutanix, based in Barcelona, Spain. I work across cloud-native infrastructure, Kubernetes, Linux, and automation, and I build open-source projects in my spare time.</p>
       <h2 id="stack">Core technologies</h2>
       <p>Python / PowerShell / Kubernetes / Google Cloud / Linux</p>
-      <p>More about my work and projects below. <a href="#job-experience" target="_blank" rel="noopener noreferrer">↓</a></p>
+      <p>More about my work and projects below. <a href="#job-experience">↓</a></p>
     </section>
     <hr />
     <div class="components components-grid">
-      <aside id="menu">
-        <h2 id="projects">Featured projects</h2>
-        <nav>
-          <ul>
-            <li><a href="https://github.com/taichikuji/discordid" target="_blank" rel="noopener noreferrer">DiscordID</a> - Profile maker powered by Discord.</li>
-            <li><a href="https://github.com/taichikuji/Sakamoto/" target="_blank" rel="noopener noreferrer">Sakamoto</a> - Discord bot for utility, moderation, media, and integrations.</li>
-            <li><a href="https://github.com/taichikuji/Stasher" target="_blank" rel="noopener noreferrer">Stasher</a> - Browser extension for temporarily hiding tabs.</li>
-            <li><a href="https://github.com/taichikuji/Linker" target="_blank" rel="noopener noreferrer">Linker</a> - Chromium extension for quick keyword redirects.</li>
-          </ul>
-        </nav>
-        <h2 id="other-projects">Other projects</h2>
-        <nav>
-          <ul>
-            <li><a href="https://github.com/taichikuji/youtube-ads-4-adaway" target="_blank" rel="noopener noreferrer">Youtube-ads-4-adaway</a></li>
-            <li><a href="https://github.com/taichikuji/simplemenu" target="_blank" rel="noopener noreferrer">Simplemenu</a></li>
-            <li><a href="https://github.com/taichikuji/CBZ-manager" target="_blank" rel="noopener noreferrer">CBZ-manager</a></li>
-            <li><a href="https://github.com/taichikuji/streamcap" target="_blank" rel="noopener noreferrer">Streamcap</a></li>
-          </ul>
-        </nav>
-        <h2 id="blog">Blog posts</h2>
-        <nav>
-          <ul>
-            <li><a href="blog/get-a-ddns-up-and-running-with-duckdns.html">DuckDNS DDNS guide</a></li>
-            <li><a href="blog/squash-commits-after-push.html">Squashing Git commits</a></li>
-            <li><a href="blog/rabbit-r1-rollback-to-stock-os.html">Rabbit R1 rollback</a></li>
-            <li><a href="blog/setting-up-simplemenu-on-powkiddy-v90.html">SimpleMenu on V90</a></li>
-            <li><a href="blog/steamcommunity-output-files-2020-outage.html">Steamcommunity outage files</a></li>
-          </ul>
-        </nav>
-        <h2 id="documentation">Documentation</h2>
-        <nav>
-          <ul>
-            <li><a href="https://github.com/taichikuji/Sakamoto/wiki" target="_blank" rel="noopener noreferrer">Sakamoto wiki</a></li>
-            <li><a href="https://github.com/taichikuji/BRWP#how-do-i-make-it-work" target="_blank" rel="noopener noreferrer">BRWP setup</a></li>
-            <li><a href="https://github.com/taichikuji/youtube-ads-4-adaway#how-the-script-works" target="_blank" rel="noopener noreferrer">Youtube-ads-4-adaway guide</a></li>
-            <li><a href="https://github.com/taichikuji/discordid/wiki" target="_blank" rel="noopener noreferrer">DiscordID wiki</a></li>
-            <li><a href="https://github.com/taichikuji/CBZ-manager#-usage" target="_blank" rel="noopener noreferrer">CBZ-manager usage</a></li>
-          </ul>
-        </nav>
+      <aside id="menu" aria-label="Projects and writing">
+        <section class="terminal-card">
+          <header>Projects</header>
+          <div>
+            <h2 id="projects">Featured</h2>
+            <nav>
+              <ul>
+                <li><a href="https://github.com/taichikuji/discordid" target="_blank" rel="noopener noreferrer">DiscordID</a> - Profile maker powered by Discord.</li>
+                <li><a href="https://github.com/taichikuji/Sakamoto/" target="_blank" rel="noopener noreferrer">Sakamoto</a> - Discord bot for utility, moderation, media, and integrations.</li>
+                <li><a href="https://github.com/taichikuji/Stasher" target="_blank" rel="noopener noreferrer">Stasher</a> - Browser extension for temporarily hiding tabs.</li>
+                <li><a href="https://github.com/taichikuji/Linker" target="_blank" rel="noopener noreferrer">Linker</a> - Chromium extension for quick keyword redirects.</li>
+              </ul>
+            </nav>
+            <h2 id="other-projects">Other projects</h2>
+            <nav>
+              <ul>
+                <li><a href="https://github.com/taichikuji/youtube-ads-4-adaway" target="_blank" rel="noopener noreferrer">Youtube-ads-4-adaway</a></li>
+                <li><a href="https://github.com/taichikuji/simplemenu" target="_blank" rel="noopener noreferrer">Simplemenu</a></li>
+                <li><a href="https://github.com/taichikuji/CBZ-manager" target="_blank" rel="noopener noreferrer">CBZ-manager</a></li>
+                <li><a href="https://github.com/taichikuji/streamcap" target="_blank" rel="noopener noreferrer">Streamcap</a></li>
+              </ul>
+            </nav>
+          </div>
+        </section>
+        <section class="terminal-card">
+          <header>Writing and documentation</header>
+          <div>
+            <h2 id="blog">Blog posts</h2>
+            <nav>
+              <ul>
+                <li><a href="blog/get-a-ddns-up-and-running-with-duckdns.html">DuckDNS DDNS guide</a></li>
+                <li><a href="blog/squash-commits-after-push.html">Squashing Git commits</a></li>
+                <li><a href="blog/rabbit-r1-rollback-to-stock-os.html">Rabbit R1 rollback</a></li>
+                <li><a href="blog/setting-up-simplemenu-on-powkiddy-v90.html">SimpleMenu on V90</a></li>
+                <li><a href="blog/steamcommunity-output-files-2020-outage.html">Steamcommunity outage files</a></li>
+              </ul>
+            </nav>
+            <h2 id="documentation">Documentation</h2>
+            <nav>
+              <ul>
+                <li><a href="https://github.com/taichikuji/Sakamoto/wiki" target="_blank" rel="noopener noreferrer">Sakamoto wiki</a></li>
+                <li><a href="https://github.com/taichikuji/BRWP#how-do-i-make-it-work" target="_blank" rel="noopener noreferrer">BRWP setup</a></li>
+                <li><a href="https://github.com/taichikuji/youtube-ads-4-adaway#how-the-script-works" target="_blank" rel="noopener noreferrer">Youtube-ads-4-adaway guide</a></li>
+                <li><a href="https://github.com/taichikuji/discordid/wiki" target="_blank" rel="noopener noreferrer">DiscordID wiki</a></li>
+                <li><a href="https://github.com/taichikuji/CBZ-manager#-usage" target="_blank" rel="noopener noreferrer">CBZ-manager usage</a></li>
+              </ul>
+            </nav>
+          </div>
+        </section>
       </aside>
       <main>
         <section>
@@ -110,50 +120,57 @@
             <h2 id="job-experience">Work experience</h2>
             <p>A brief history of the systems and teams I've worked with.</p>
           </header>
-          <div class="job-history">
-            <div class="job">
-              <h3>Site Reliability Engineer - Cloud Native Specialist</h3>
-              <p><a href="https://www.nutanix.com" target="_blank" rel="noopener noreferrer">Nutanix</a></p>
-              <p>April 2026 - Present</p>
+          <div class="terminal-timeline">
+            <article class="terminal-card">
+              <header>April 2026 - Present</header>
+              <div>
+                <h3>Site Reliability Engineer - Cloud Native Specialist</h3>
+                <p><a href="https://www.nutanix.com" target="_blank" rel="noopener noreferrer">Nutanix</a></p>
               <ul>
                 <li>Resolve complex cases across <strong>NKP, Kubernetes, etcd, Linux</strong>, and cloud-native infrastructure.</li>
                 <li>Build AI-assisted knowledge and automation workflows with <strong>Nutanix AI</strong> and custom <strong>Glean agents</strong> to improve support quality and speed.</li>
               </ul>
-            </div>
-            <div class="job">
-              <h3>Site Reliability Engineer</h3>
-              <p><a href="https://www.nutanix.com" target="_blank" rel="noopener noreferrer">Nutanix</a></p>
-              <p>May 2024 - April 2026</p>
+              </div>
+            </article>
+            <article class="terminal-card">
+              <header>May 2024 - April 2026</header>
+              <div>
+                <h3>Site Reliability Engineer</h3>
+                <p><a href="https://www.nutanix.com" target="_blank" rel="noopener noreferrer">Nutanix</a></p>
               <ul>
                 <li>Provided deep technical troubleshooting and integration guidance across <strong>HCI / AHV, AOS, Prism, Move, Calm, Flow, NC2</strong>, and <strong>Data Lens</strong>.</li>
                 <li>Worked across <strong>AHV, Hyper-V, and ESXi</strong>, alongside third-party ecosystems including <strong>Veeam, Rubrik, Fortinet</strong>, and <strong>HYCU</strong>.</li>
               </ul>
-            </div>
-            <div class="job">
-              <h3>Google Cloud Networking Engineer</h3>
-              <p><a href="https://www.webhelp.com" target="_blank" rel="noopener noreferrer">Webhelp</a> / <a href="https://www.concentrix.com" target="_blank" rel="noopener noreferrer">Concentrix</a> on
-                behalf of <a href="https://cloud.google.com" target="_blank" rel="noopener noreferrer">Google</a></p>
-              <p>July 2022 - May 2024</p>
+              </div>
+            </article>
+            <article class="terminal-card">
+              <header>July 2022 - May 2024</header>
+              <div>
+                <h3>Google Cloud Networking Engineer</h3>
+                <p><a href="https://www.webhelp.com" target="_blank" rel="noopener noreferrer">Webhelp</a> / <a href="https://www.concentrix.com" target="_blank" rel="noopener noreferrer">Concentrix</a> on behalf of <a href="https://cloud.google.com" target="_blank" rel="noopener noreferrer">Google</a></p>
               <ul>
                 <li>Progressed from Technical Support Representative to Subject Matter Expert for <strong>Google Cloud networking</strong>.</li>
                 <li>Supported <strong>GKE, Anthos Service Mesh, Istio, VPC, VPN, Interconnect, DNS, Private Service Connect, Load Balancing, Cloud Armor</strong>, and <strong>Cloud NAT</strong>.</li>
                 <li>Worked with engineering and the wider support team to improve cases, internal processes, and customer outcomes.</li>
               </ul>
-            </div>
-            <div class="job">
-              <h3>Systems and Network Administrator</h3>
-              <p><a href="https://www.icot.es" target="_blank" rel="noopener noreferrer">ICOT</a></p>
-              <p>July 2020 - June 2022</p>
+              </div>
+            </article>
+            <article class="terminal-card">
+              <header>July 2020 - June 2022</header>
+              <div>
+                <h3>Systems and Network Administrator</h3>
+                <p><a href="https://www.icot.es" target="_blank" rel="noopener noreferrer">ICOT</a></p>
               <ul>
                 <li>Administered <strong>Linux, Windows, network infrastructure, IP phones</strong>, and endpoints across municipal projects.</li>
                 <li>Used scripting and automation to improve deployments, support, troubleshooting, and day-to-day operations.</li>
               </ul>
-            </div>
+              </div>
+            </article>
           </div>
         </section>
         <hr />
         <section>
-          <footer>The site uses <a href="https://terminalcss.xyz" target="_blank" rel="noopener noreferrer">terminal.css</a> with local additions. <a href="#nav" target="_blank" rel="noopener noreferrer">↑</a></footer>
+          <footer>The site uses <a href="https://terminalcss.xyz" target="_blank" rel="noopener noreferrer">terminal.css</a> with local additions. <a href="#nav">↑</a></footer>
         </section>
       </main>
     </div>
