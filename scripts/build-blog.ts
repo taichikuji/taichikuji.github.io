@@ -22,7 +22,7 @@ const markdown = new MarkdownIt({
   typographer: false,
   highlight(code, language) {
     if (language && hljs.getLanguage(language)) {
-      return hljs.highlight(code, { language }).value;
+      return `<pre><code class="hljs language-${escapeHtml(language)}">${hljs.highlight(code, { language }).value}</code></pre>`;
     }
     return "";
   },
