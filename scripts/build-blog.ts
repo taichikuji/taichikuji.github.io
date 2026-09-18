@@ -88,16 +88,19 @@ async function readPost(file: string): Promise<Post> {
   return { title: title.trim(), slug, date, summary: summary.trim(), tags, draft, body: match[2] };
 }
 
-function page(title: string, description: string, content: string, isArticle = false): string {
+function page(title: string, description: string, content: string, url: string, post?: Post): string {
   const values = {
     title: escapeHtml(title),
     description: escapeHtml(description),
+    url,
+    type: post ? "article" : "website",
     content,
-    menu: `${isArticle ? '<li><a href="index.html">Blog</a></li>' : ""}<li><a href="../index.html">Home</a></li>`,
-    footer: isArticle ? '<footer><a href="index.html">Back to blog</a> | <a href="../index.html">Home</a></footer>' : "",
+    articleMeta: post ? `<meta property="article:published_time" content="${post.date}T00:00:00Z">\n  ${post.tags.map((tag) => `<meta property="article:tag" content="${escapeHtml(tag)}">`).join("\n  ")}` : "",
+    menu: `${post ? '<li><a href="index.html">Blog</a></li>' : ""}<li><a href="../index.html">Home</a></li>`,
+    footer: post ? '<footer><a href="index.html">Back to blog</a> | <a href="../index.html">Home</a></footer>' : "",
   };
   return pageTemplate.replace(
-    /{{(title|description|content|menu|footer)}}/g,
+    /{{(title|description|url|type|content|articleMeta|menu|footer)}}/g,
     (_, key: keyof typeof values) => values[key],
   );
 }
@@ -109,7 +112,7 @@ function article(post: Post): string {
       <p>${escapeHtml(post.summary)}</p>
       <p>Tags: ${post.tags.map(escapeHtml).join(" / ")}</p>
     </header>${markdown.render(post.body)}</article>`;
-  return page(post.title, post.summary, content, true);
+  return page(post.title, post.summary, content, `https://taichikuji.org/blog/${post.slug}.html`, post);
 }
 
 function blogIndex(posts: Post[]): string {
@@ -117,7 +120,7 @@ function blogIndex(posts: Post[]): string {
   const items = posts.map((post) =>
     `<li><a href="${post.slug}.html">${escapeHtml(post.title)}</a> - ${post.date}<br>${escapeHtml(post.summary)}</li>`
   ).join("\n") || "<li>No posts yet.</li>";
-  return page("Blog", "Notes and articles by Iván (Taichums).", `<h1>Blog</h1><p>${description}</p><ul>${items}</ul>`);
+  return page("Blog", "Notes and articles by Iván (Taichums).", `<h1>Blog</h1><p>${description}</p><ul>${items}</ul>`, "https://taichikuji.org/blog/");
 }
 
 await mkdir(postsDir, { recursive: true });
